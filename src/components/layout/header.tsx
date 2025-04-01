@@ -49,13 +49,14 @@ export function Header() {
                 width={120}
                 height={32}
                 className={`transition-opacity duration-300 ${isScrolled ? 'opacity-90 hover:opacity-100' : 'opacity-90 hover:opacity-100'}`}
+                suppressHydrationWarning
               />
             )}
           </Link>
           <nav>
             <ul className="flex items-center gap-6">
               {navigation.map((item) => (
-                <li key={item.name}>
+                <li key={item.name} suppressHydrationWarning>
                   <Link
                     href={item.href}
                     className={`text-sm font-medium transition-colors ${
@@ -68,7 +69,7 @@ export function Header() {
                   </Link>
                 </li>
               ))}
-              <li>
+              <li suppressHydrationWarning>
                 <Button
                   variant="ghost"
                   size="icon"
