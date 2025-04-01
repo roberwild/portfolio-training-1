@@ -1,26 +1,244 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Tipografías corporativas */
+@font-face {
+  font-family: 'lynstonelight';
+  src: url('/fonts/Lynstone-Light.woff2') format('woff2'),
+       url('/fonts/Lynstone-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'lynstone';
+  src: url('/fonts/Lynstone-Book.woff2') format('woff2'),
+       url('/fonts/Lynstone-Book.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'lynstonebold';
+  src: url('/fonts/Lynstone-SemiBold.woff2') format('woff2'),
+       url('/fonts/Lynstone-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --theme-background-image: url('/images/backgrounds/bk.home-white.jpg');
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --theme-background-image: url('/images/backgrounds/bk.quienes-somos.jpg');
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'lynstone', sans-serif;
+  }
+
+  /* Encabezados */
+  h1, h2, h3 {
+    @apply font-light mb-6;
+    font-family: 'lynstonelight', sans-serif;
+  }
+
+  h1 { @apply text-4xl md:text-5xl mb-2 md:mb-6; }
+  h2 { @apply text-3xl md:text-4xl mb-6 md:mb-9; }
+  h3 { @apply text-2xl md:text-3xl mb-6; }
+
+  /* Enlaces */
+  a {
+    @apply text-primary underline hover:no-underline;
+  }
+
+  /* Párrafos */
+  p {
+    @apply mb-6;
+  }
+
+  p strong {
+    font-family: 'lynstonebold', Arial, sans-serif;
+    @apply font-normal;
+  }
+
+  /* Listas */
+  ul, ol {
+    @apply pl-4 mb-6;
+  }
+
+  ol {
+    @apply text-primary;
+  }
+
+  ol li {
+    @apply mb-3;
+  }
+
+  ol p {
+    @apply text-foreground mb-0;
+  }
+
+  ul li {
+    @apply mb-3 pl-1;
+    list-style-image: url('/images/circle-list-gray-light.svg');
+  }
+
+  ul strong {
+    font-family: 'lynstonebold', sans-serif;
+  }
+
+  /* Tablas */
+  .table {
+    @apply w-full mb-4 border-t border-b border-primary;
+  }
+
+  .table th {
+    @apply text-primary py-4 align-bottom border-b-2 border-gray-200;
+  }
+
+  .table td {
+    @apply py-1 align-top border-t border-gray-200;
+  }
+}
+
+@layer components {
+  /* Botón corporativo */
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-3 cursor-pointer transition-colors duration-200 hover:bg-[#9b2a1f];
+    font-family: 'lynstonebold', sans-serif;
+  }
+
+  /* Contenedor con fondo de imagen */
+  .hero-background {
+    @apply relative min-h-screen bg-cover bg-center bg-no-repeat;
+    background-image: url('/images/backgrounds/bk.quienes-somos.jpg');
+  }
+
+  /* Overlay para fondos oscuros */
+  .dark-overlay {
+    @apply absolute inset-0 bg-black/50;
+  }
+
+  /* Contenedor de grid simplificado */
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1340px;
+  }
+}
+
+@layer utilities {
+  .animate-in {
+    animation: animate-in 0.5s ease-out;
+  }
+  
+  .slide-in-from-top {
+    animation: slide-in-from-top 0.5s ease-out;
+  }
+  
+  .slide-in-from-bottom {
+    animation: slide-in-from-bottom 0.5s ease-out;
+  }
+  
+  .fade-in {
+    animation: fade-in 0.5s ease-out;
+  }
+}
+
+/* Animaciones */
+@keyframes animate-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-from-top {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Transiciones suaves para cambios de tema */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Evitar transiciones en la carga inicial */
+.no-transitions * {
+  transition: none !important;
 }

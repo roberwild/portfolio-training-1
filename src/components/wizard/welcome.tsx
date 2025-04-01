@@ -3,7 +3,6 @@
 import React from 'react'
 import { BarChart3, Shield, PieChart, TrendingUp, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { usePortfolioWizardStore } from '@/lib/store/portfolio-wizard'
 
 const features = [
@@ -29,14 +28,6 @@ const features = [
   },
 ]
 
-const steps = [
-  'Completa un breve cuestionario de perfil de riesgo',
-  'Selecciona las empresas que te interesan',
-  'Establece los porcentajes de inversión',
-  'Revisa la diversificación y análisis',
-  'Obtén tu portfolio personalizado',
-]
-
 export function Welcome() {
   const { nextStep, setIntroSeen } = usePortfolioWizardStore()
 
@@ -46,60 +37,74 @@ export function Welcome() {
   }
 
   return (
-    <main className="overflow-hidden">
-      <div className="w-full max-w-7xl mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-3 text-white">
+    <main className="overflow-hidden h-[calc(100vh-160px)] flex items-center justify-center">
+      <div className="w-full max-w-7xl mx-auto px-4">
+        <div className="text-center mb-5">
+          <h1 
+            className="text-4xl md:text-5xl mb-2 text-zinc-900 dark:text-white font-semibold" 
+            style={{ fontFamily: 'lynstonebold, sans-serif' }}
+          >
             Bienvenido al Creador de Portfolios
           </h1>
-          <p className="text-lg text-white/90">
-            Una herramienta intuitiva para crear y gestionar tu portfolio de inversiones de manera profesional y eficiente.
+          <p className="text-lg text-zinc-700 dark:text-zinc-200 max-w-3xl mx-auto">
+            Una herramienta intuitiva para crear y gestionar tu portfolio de inversiones de manera profesional y eficiente
           </p>
         </div>
 
-        <div className="grid grid-cols-4 gap-6 mb-8">
-          {features.map((feature) => (
-            <Card key={feature.title} className="bg-black/30 border-white/10 backdrop-blur">
-              <CardContent className="p-4">
-                <feature.icon className="w-5 h-5 text-primary mb-2" />
-                <h3 className="text-white text-base font-medium mb-1.5">
-                  {feature.title}
-                </h3>
-                <p className="text-white/80 text-sm leading-snug">
-                  {feature.description}
-                </p>
-              </CardContent>
-            </Card>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {features.map((feature, index) => (
+            <div 
+              key={index} 
+              className="rounded-lg border p-4 bg-white border-zinc-300 dark:bg-black/40 dark:backdrop-blur-sm dark:border-transparent"
+            >
+              <div className="mb-2">
+                <feature.icon className="w-6 h-6 text-red-600" />
+              </div>
+              <h3 className="text-base font-semibold mb-1 text-zinc-900 dark:text-white">{feature.title}</h3>
+              <p className="text-sm text-zinc-600 dark:text-zinc-300">{feature.description}</p>
+            </div>
           ))}
         </div>
 
-        <div className="max-w-2xl mx-auto w-full mb-8">
-          <h2 className="text-xl font-bold text-white text-center mb-4">
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold mb-4 text-zinc-900 dark:text-white text-center">
             Cómo funciona
-          </h2>
-          <div className="bg-black/30 backdrop-blur rounded-lg border border-white/10 p-4">
+          </h3>
+          <div 
+            className="rounded-lg border p-4 max-w-3xl mx-auto bg-white border-zinc-300 dark:bg-black/40 dark:backdrop-blur-sm dark:border-transparent"
+          >
             <ol className="space-y-2">
-              {steps.map((step, index) => (
-                <li key={index} className="flex items-center gap-3 text-white">
-                  <span className="flex-none flex items-center justify-center w-5 h-5 rounded-full bg-primary text-white text-sm font-medium">
-                    {index + 1}
-                  </span>
-                  <span className="text-sm">
-                    {step}
-                  </span>
-                </li>
-              ))}
+              <li className="flex items-start gap-3">
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-600 text-white font-semibold flex-shrink-0 text-xs">1</span>
+                <span className="text-sm text-zinc-600 dark:text-zinc-200">Completa un breve cuestionario de perfil de riesgo</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-600 text-white font-semibold flex-shrink-0 text-xs">2</span>
+                <span className="text-sm text-zinc-600 dark:text-zinc-200">Selecciona las empresas que te interesan</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-600 text-white font-semibold flex-shrink-0 text-xs">3</span>
+                <span className="text-sm text-zinc-600 dark:text-zinc-200">Establece los porcentajes de inversión</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-600 text-white font-semibold flex-shrink-0 text-xs">4</span>
+                <span className="text-sm text-zinc-600 dark:text-zinc-200">Revisa la diversificación y análisis</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-600 text-white font-semibold flex-shrink-0 text-xs">5</span>
+                <span className="text-sm text-zinc-600 dark:text-zinc-200">Obtén tu portfolio personalizado</span>
+              </li>
             </ol>
           </div>
         </div>
 
-        <div className="text-center mt-4">
-          <Button
+        <div className="flex justify-center items-center">
+          <Button 
             onClick={handleStart}
-            className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-md text-base font-medium inline-flex items-center gap-2"
+            className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md flex items-center gap-2 font-medium"
           >
             Comenzar ahora
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
       </div>
