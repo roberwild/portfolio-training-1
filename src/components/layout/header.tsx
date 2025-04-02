@@ -33,6 +33,34 @@ export function Header() {
 
   const currentTheme = theme === "system" ? systemTheme : theme
 
+  // No renderizar nada dependiente del tema hasta que el componente esté montado
+  if (!mounted) {
+    return (
+      <header className="sticky top-0 z-50 transition-colors duration-300 bg-transparent">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-20">
+            <div className="h-8 w-32" /> {/* Espacio para el logo */}
+            <nav>
+              <ul className="flex items-center gap-6">
+                {navigation.map((item) => (
+                  <li key={item.name}>
+                    <div className="text-sm font-medium h-4 w-16" /> {/* Espacio para el enlace */}
+                  </li>
+                ))}
+                <li>
+                  <div className="rounded-full w-9 h-9" /> {/* Espacio para el botón de tema */}
+                </li>
+                <li>
+                  <div className="w-20 h-10" /> {/* Espacio para el botón de contacto */}
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+    )
+  }
+
   return (
     <header className={`sticky top-0 z-50 transition-colors duration-300 ${
       isScrolled ? 'bg-white/80 dark:bg-black/80 backdrop-blur-sm' : 'bg-transparent'
@@ -40,23 +68,20 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center">
-            {mounted && (
-              <Image
-                src={currentTheme === 'dark' 
-                  ? "/images/logo/logo-singular-bank-white.svg" 
-                  : "/images/logo/sb-logo-n.svg"}
-                alt="Singular Bank Logo"
-                width={120}
-                height={32}
-                className={`transition-opacity duration-300 ${isScrolled ? 'opacity-90 hover:opacity-100' : 'opacity-90 hover:opacity-100'}`}
-                suppressHydrationWarning
-              />
-            )}
+            <Image
+              src={currentTheme === 'dark' 
+                ? "/images/logo/logo-singular-bank-white.svg" 
+                : "/images/logo/sb-logo-n.svg"}
+              alt="Singular Bank Logo"
+              width={120}
+              height={32}
+              className={`transition-opacity duration-300 ${isScrolled ? 'opacity-90 hover:opacity-100' : 'opacity-90 hover:opacity-100'}`}
+            />
           </Link>
           <nav>
             <ul className="flex items-center gap-6">
               {navigation.map((item) => (
-                <li key={item.name} suppressHydrationWarning>
+                <li key={item.name}>
                   <Link
                     href={item.href}
                     className={`text-sm font-medium transition-colors ${
@@ -69,7 +94,7 @@ export function Header() {
                   </Link>
                 </li>
               ))}
-              <li suppressHydrationWarning>
+              <li>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -80,7 +105,7 @@ export function Header() {
                       : (currentTheme === 'dark' ? 'text-white/90 hover:text-white' : 'text-zinc-600 hover:text-black')
                   }`}
                 >
-                  {mounted && theme === 'dark' ? (
+                  {theme === 'dark' ? (
                     <Sun className="h-[1.2rem] w-[1.2rem]" />
                   ) : (
                     <Moon className="h-[1.2rem] w-[1.2rem]" />

@@ -3,7 +3,8 @@
 import React from 'react'
 import { BarChart3, Shield, PieChart, TrendingUp, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { usePortfolioWizardStore } from '@/lib/store/portfolio-wizard'
+import { usePortfolioWizardStore } from '@/store/portfolio-wizard-store'
+import { useRouter } from 'next/navigation'
 
 const features = [
   {
@@ -29,11 +30,14 @@ const features = [
 ]
 
 export function Welcome() {
-  const { nextStep, setIntroSeen } = usePortfolioWizardStore()
+  const { goToStep } = usePortfolioWizardStore()
+  const router = useRouter()
 
   const handleStart = () => {
-    setIntroSeen(true)
-    nextStep()
+    // Cambiamos al primer paso real (paso 0)
+    goToStep(0)
+    // Navegamos a la página del wizard
+    router.push('/portfolio')
   }
 
   return (

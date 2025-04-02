@@ -31,6 +31,7 @@ export default function RootLayout({
               className="min-h-screen bg-cover bg-center bg-fixed"
               style={{
                 backgroundImage: `var(--theme-background-image)`,
+                backgroundColor: `hsl(var(--background))`,
               }}
             >
               <div className="min-h-screen flex flex-col relative z-10">
