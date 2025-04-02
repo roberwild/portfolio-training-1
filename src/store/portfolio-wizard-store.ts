@@ -66,7 +66,7 @@ export interface PortfolioWizardState {
   resetWizard: () => void;
 }
 
-const initialState = {
+const initialState: Omit<PortfolioWizardState, 'goToStep' | 'setPortfolioBasics' | 'setRiskAnswer' | 'calculateRiskProfile' | 'toggleExcludedSector' | 'setFilters' | 'toggleCompanySelection' | 'setAllocation' | 'distributeEqually' | 'rebalancePortfolio' | 'resetWizard'> = {
   currentStep: -1, // -1 es la pantalla de bienvenida, 0 es el primer paso real
   maxStepVisited: -1,
   portfolioName: '',
@@ -77,7 +77,7 @@ const initialState = {
   filters: {
     sectors: [],
     regions: [],
-    marketCapRange: [0, 1000000000000], // 0 a 1 trillion
+    marketCapRange: [0, 1000000000000] as [number, number], // Explicitly cast to tuple
     minDividend: 0,
     maxVolatility: 100,
   },
@@ -89,7 +89,7 @@ export const usePortfolioWizardStore = create<PortfolioWizardState>()(
   devtools(
     persist(
       (set, get) => ({
-        ...initialState,
+        ...(initialState as PortfolioWizardState), // Cast initialState here as well if needed, though Omit might suffice
         
         // Navegación
         goToStep: (step) => set((state) => ({
@@ -274,7 +274,14 @@ export const usePortfolioWizardStore = create<PortfolioWizardState>()(
         },
         
         // Reset
-        resetWizard: () => set(initialState),
+        resetWizard: () => set({
+          ...initialState,
+          filters: {
+            ...initialState.filters,
+            // Ensure marketCapRange keeps its tuple type on reset
+            marketCapRange: [...initialState.filters.marketCapRange] as [number, number] 
+          }
+        }),
       }),
       {
         name: 'portfolio-wizard-storage',

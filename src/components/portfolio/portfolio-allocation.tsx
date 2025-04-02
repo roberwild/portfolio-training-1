@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { usePortfolioWizardStore, CompanyAllocation } from '@/store/portfolio-wizard-store';
+import { usePortfolioWizardStore } from '@/store/portfolio-wizard-store';
 import { mockCompanies } from '@/constants/portfolio-wizard';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -171,11 +171,6 @@ export const PortfolioAllocation = () => {
   const toggleLock = (id: string) => {
     const isLocked = allocations[id]?.isLocked || false;
     setAllocation(id, { isLocked: !isLocked });
-  };
-  
-  // Formatear porcentaje
-  const formatPercentage = (value: number) => {
-    return `${value.toFixed(1)}%`;
   };
   
   return (

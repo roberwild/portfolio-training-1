@@ -1,7 +1,7 @@
 'use client';
 
 import { usePortfolioWizardStore } from '@/store/portfolio-wizard-store';
-import { CheckCircle, Circle, ChevronRight } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 // Definición de los pasos del wizard

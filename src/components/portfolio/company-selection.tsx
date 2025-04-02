@@ -65,7 +65,7 @@ export const CompanySelection = () => {
     const defaultFilters = {
       sectors: [],
       regions: [],
-      marketCapRange: [0, 1000000000000], // 0 a 1T
+      marketCapRange: [0, 1000000000000] as [number, number],
       minDividend: 0,
       maxVolatility: 100,
     };
@@ -165,7 +165,7 @@ export const CompanySelection = () => {
   };
   
   // Manejar exclusión de sectores completos
-  const handleExcludeSector = (sector: string, checked: boolean) => {
+  const handleExcludeSector = (sector: string) => {
     toggleExcludedSector(sector);
   };
   
@@ -653,7 +653,7 @@ export const CompanySelection = () => {
                             <Checkbox 
                               id={`exclude-${sector}`} 
                               checked={excludedSectors.includes(sector)}
-                              onCheckedChange={(checked) => handleExcludeSector(sector, checked === true)}
+                              onCheckedChange={() => handleExcludeSector(sector)}
                             />
                             <div className="grid gap-1.5 leading-none">
                               <Label 
